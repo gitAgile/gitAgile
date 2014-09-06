@@ -192,12 +192,6 @@
 			<version>1.9.5</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.unitils</groupId>
-			<artifactId>unitils-dbunit</artifactId>
-			<version>3.3</version>
-			<scope>test</scope>
-		</dependency>
 
 	</dependencies>
 

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Table(name = "CLIENTE")
 @Entity
@@ -39,6 +40,12 @@ public class Cliente implements Serializable {
 
 	@OneToMany(mappedBy = "cliente")
 	private List<Vuelo> listaVuelos;
+
+	@Transient
+	private List<CatalogoDestino> destinosCanjeados;
+
+	@Transient
+	private Long puntosAcumulados;
 
 	/**
 	 * @return the codigoCliente
@@ -143,6 +150,36 @@ public class Cliente implements Serializable {
 	 */
 	public void setListaVuelos(List<Vuelo> listaVuelos) {
 		this.listaVuelos = listaVuelos;
+	}
+
+	/**
+	 * @return the destinosCanjeados
+	 */
+	public List<CatalogoDestino> getDestinosCanjeados() {
+		return destinosCanjeados;
+	}
+
+	/**
+	 * @param destinosCanjeados
+	 *            the destinosCanjeados to set
+	 */
+	public void setDestinosCanjeados(List<CatalogoDestino> destinosCanjeados) {
+		this.destinosCanjeados = destinosCanjeados;
+	}
+
+	/**
+	 * @return the puntosAcumulados
+	 */
+	public Long getPuntosAcumulados() {
+		return puntosAcumulados;
+	}
+
+	/**
+	 * @param puntosAcumulados
+	 *            the puntosAcumulados to set
+	 */
+	public void setPuntosAcumulados(Long puntosAcumulados) {
+		this.puntosAcumulados = puntosAcumulados;
 	}
 
 }
