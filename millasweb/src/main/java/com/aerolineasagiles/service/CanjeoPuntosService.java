@@ -7,11 +7,13 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import com.aerolineasagiles.data.CatalogoDestinoDao;
+import com.aerolineasagiles.data.ClienteDao;
 import com.aerolineasagiles.data.VueloDao;
 import com.aerolineasagiles.exception.DestinosExcedenPuntosException;
 import com.aerolineasagiles.exception.NoPuntosAcumuladosException;
 import com.aerolineasagiles.exception.PuntosNoSuficientesException;
 import com.aerolineasagiles.model.CatalogoDestino;
+import com.aerolineasagiles.model.Cliente;
 import com.aerolineasagiles.model.EstadoEnum;
 import com.aerolineasagiles.model.Vuelo;
 
@@ -23,6 +25,13 @@ public class CanjeoPuntosService {
 
 	@EJB
 	private CatalogoDestinoDao catalogoDestinoDao;
+
+	@EJB
+	private ClienteDao clienteDao;
+
+	public Cliente buscarClientePorCedula(String cedula) {
+		return clienteDao.buscarClientePorCedula(cedula);
+	}
 
 	public Long obtenerPuntosAcumulados(Long codigoCliente) throws NoPuntosAcumuladosException {
 		List<Vuelo> vuelosDeCliente = vueloDao.consultarVuelosPorCliente(codigoCliente);
@@ -66,5 +75,9 @@ public class CanjeoPuntosService {
 		}
 		return puntosAcumulados - puntosDeDestinos;
 
+	}
+
+	public CatalogoDestino obtenerDestinoPorCodigo(Long codigo) {
+		return catalogoDestinoDao.obtenerPorCodigo(codigo);
 	}
 }

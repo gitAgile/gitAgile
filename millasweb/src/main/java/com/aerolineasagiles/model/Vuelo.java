@@ -7,6 +7,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -29,7 +31,7 @@ public class Vuelo implements Serializable {
 	private Double distanciaRecorrida;
 
 	@Column(name = "CODIGO_DESTINO")
-	private CatalogoDestino destino;
+	private Long destino;
 
 	@Column(name = "CLASE_VUELO")
 	private String claseVuelo;
@@ -37,6 +39,7 @@ public class Vuelo implements Serializable {
 	@Column(name = "PUNTOS_OBTENIDOS")
 	private Long puntosObtenidos;
 
+	@Enumerated(EnumType.STRING)
 	@Column(name = "ESTADO_VUELO")
 	private EstadoEnum estado;
 
@@ -72,21 +75,6 @@ public class Vuelo implements Serializable {
 	 */
 	public void setDistanciaRecorrida(Double distanciaRecorrida) {
 		this.distanciaRecorrida = distanciaRecorrida;
-	}
-
-	/**
-	 * @return the destino
-	 */
-	public CatalogoDestino getDestino() {
-		return destino;
-	}
-
-	/**
-	 * @param destino
-	 *            the destino to set
-	 */
-	public void setDestino(CatalogoDestino destino) {
-		this.destino = destino;
 	}
 
 	/**
@@ -132,6 +120,21 @@ public class Vuelo implements Serializable {
 	 */
 	public void setEstado(EstadoEnum estado) {
 		this.estado = estado;
+	}
+
+	/**
+	 * @return the destino
+	 */
+	public Long getDestino() {
+		return destino;
+	}
+
+	/**
+	 * @param destino
+	 *            the destino to set
+	 */
+	public void setDestino(Long destino) {
+		this.destino = destino;
 	}
 
 }

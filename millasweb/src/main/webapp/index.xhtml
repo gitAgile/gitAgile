@@ -10,13 +10,37 @@
 
 
 		<h:form id="reg">
-			<h:panelGrid columns="2" styleClass="formulario"
-				columnClasses="formulario-label, topped">
+			<br />
+			<p:messages showDetail="true" autoUpdate="true" closable="true" />
 
+			<h:panelGrid id="pnlBusquedaVuelos" columns="2"
+				styleClass="formulario" columnClasses="formulario-label, topped">
 				<h:outputLabel value="Cedula/Pasporte: " />
-				<p:inputText value="hola mundo" />
-				<p:commandButton id="btnBuscar" value="Buscar"></p:commandButton>
+				<p:inputText id="txtCedulaCliente"
+					value="#{canjeoMillasController.cedulaCliente}" />
+				<p:commandButton id="btnConsultar" value="Consultar Puntos"
+					actionListener="#{canjeoMillasController.consultarListener}"
+					update="lblPuntosAcumulados,pnlDestinosCanjeables"
+					process="pnlBusquedaVuelos" />
+			</h:panelGrid>
 
+			<h:panelGrid columns="2" columnClasses="formulario-label, topped">
+				<h:outputLabel value="Puntos Acumulados: " />
+				<h:outputLabel id="lblPuntosAcumulados"
+					value="#{canjeoMillasController.puntosAcumulados}" />
+			</h:panelGrid>
+
+			<h:panelGrid id="pnlDestinosCanjeables" columns="2"
+				styleClass="formulario" columnClasses="formulario-label, topped">
+				<h:outputLabel value="Destinos canjeables:" />
+				<p:selectManyCheckbox layout="grid" columns="2"
+					value="#{canjeoMillasController.destinosSeleccionados}">
+					<f:selectItems value="#{canjeoMillasController.destinosCanjeables}"
+						var="destino" itemLabel="#{destino.nombreDestino}"
+						itemValue="#{destino.codigoCatalogoDestino}" />
+				</p:selectManyCheckbox>
+				<p:commandButton value="Canjear destinos"
+					actionListener="#{canjeoMillasController.asignarDestinosSeleccionados}" />
 			</h:panelGrid>
 
 		</h:form>
