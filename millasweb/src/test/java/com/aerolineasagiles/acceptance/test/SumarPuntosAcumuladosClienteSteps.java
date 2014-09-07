@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.openejb.api.LocalClient;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -22,7 +23,8 @@ import cucumber.annotation.en.Given;
 import cucumber.annotation.en.Then;
 import cucumber.annotation.en.When;
 
-public class SumarPuntosAcumuladosClienteDefinitions {
+@LocalClient
+public class SumarPuntosAcumuladosClienteSteps {
 
 	@Mock
 	private ClienteDao clienteDao;
@@ -45,6 +47,7 @@ public class SumarPuntosAcumuladosClienteDefinitions {
 		cliente = new Cliente();
 		cliente.setCodigoCliente(1l);
 		cliente.setCedula(cedula);
+
 		assertEquals("1721220000", cliente.getCedula());
 	}
 

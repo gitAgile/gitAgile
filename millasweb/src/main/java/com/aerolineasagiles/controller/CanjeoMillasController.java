@@ -40,7 +40,7 @@ public class CanjeoMillasController {
 		consultarDestinosCanjeables();
 	}
 
-	private void consultarDestinosCanjeables() {
+	public void consultarDestinosCanjeables() {
 		try {
 			destinosCanjeables = canjeoPuntosService.obtenerDestinosCanjeablesPorPuntosAcumulados(puntosAcumulados);
 		} catch (PuntosNoSuficientesException e) {
