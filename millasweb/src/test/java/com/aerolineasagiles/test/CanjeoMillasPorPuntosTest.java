@@ -12,13 +12,18 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import com.aerolineasagiles.data.ClienteDao;
 import com.aerolineasagiles.data.VueloDao;
 import com.aerolineasagiles.exception.NoPuntosAcumuladosException;
+import com.aerolineasagiles.model.Cliente;
 import com.aerolineasagiles.model.EstadoEnum;
 import com.aerolineasagiles.model.Vuelo;
 import com.aerolineasagiles.service.CanjeoPuntosService;
 
 public class CanjeoMillasPorPuntosTest {
+
+	@Mock
+	private ClienteDao clienteDao;
 
 	@Mock
 	private VueloDao vueloDao;
@@ -33,12 +38,19 @@ public class CanjeoMillasPorPuntosTest {
 
 	@Test
 	public void debeObtenerUnMensajeCuandoNoSeTienePuntosAcumulados() {
+
+		String cedulaCliente = "1712345678";
+		Cliente cliente = new Cliente();
+		cliente.setCodigoCliente(5L);
+		cliente.setCedula(cedulaCliente);
+
 		Long codigoCliente = 5L;
 		List<Vuelo> listaVuelosMock = new ArrayList<Vuelo>();
 
+		Mockito.when(clienteDao.buscarClientePorCedula(cedulaCliente)).thenReturn(cliente);
 		Mockito.when(vueloDao.consultarVuelosPorCliente(codigoCliente)).thenReturn(listaVuelosMock);
 		try {
-			canjeoPuntosService.obtenerPuntosAcumulados(codigoCliente);
+			canjeoPuntosService.obtenerPuntosAcumulados(cedulaCliente);
 		} catch (NoPuntosAcumuladosException e) {
 			Assert.assertEquals("No existen puntos acumulados.", e.getMessage());
 		}
@@ -47,18 +59,29 @@ public class CanjeoMillasPorPuntosTest {
 
 	@Test(expected = NoPuntosAcumuladosException.class)
 	public void debeLanzarExcepcionCuandoNoSeTienePuntosAcumulados() throws NoPuntosAcumuladosException {
+
+		String cedulaCliente = "1712345678";
+		Cliente cliente = new Cliente();
+		cliente.setCodigoCliente(5L);
+		cliente.setCedula(cedulaCliente);
+
 		Long codigoCliente = 5L;
 		List<Vuelo> listaVuelosMock = new ArrayList<Vuelo>();
 
+		Mockito.when(clienteDao.buscarClientePorCedula(cedulaCliente)).thenReturn(cliente);
 		Mockito.when(vueloDao.consultarVuelosPorCliente(codigoCliente)).thenReturn(listaVuelosMock);
-		canjeoPuntosService.obtenerPuntosAcumulados(codigoCliente);
+		canjeoPuntosService.obtenerPuntosAcumulados(cedulaCliente);
 
 	}
 
 	@Test
 	public void debeObtenerLosPuntosAcumuladosDeUnClienteSoloDeViajesConsumidos() throws NoPuntosAcumuladosException {
 
-		Long codigoCliente = 5L;
+		String cedulaCliente = "1712345678";
+		Cliente cliente = new Cliente();
+		cliente.setCodigoCliente(5L);
+		cliente.setCedula(cedulaCliente);
+
 		List<Vuelo> listaVuelosMock = new ArrayList<Vuelo>();
 		Vuelo vuelo1 = new Vuelo();
 		vuelo1.setPuntosObtenidos(1000L);
@@ -69,9 +92,10 @@ public class CanjeoMillasPorPuntosTest {
 		listaVuelosMock.add(vuelo1);
 		listaVuelosMock.add(vuelo2);
 
-		Mockito.when(vueloDao.consultarVuelosPorCliente(codigoCliente)).thenReturn(listaVuelosMock);
+		Mockito.when(clienteDao.buscarClientePorCedula(cedulaCliente)).thenReturn(cliente);
+		Mockito.when(vueloDao.consultarVuelosPorCliente(cliente.getCodigoCliente())).thenReturn(listaVuelosMock);
 		// Act
-		long puntosAcumulados = canjeoPuntosService.obtenerPuntosAcumulados(codigoCliente);
+		long puntosAcumulados = canjeoPuntosService.obtenerPuntosAcumulados(cedulaCliente);
 		long puntosAcumuladosEsperados = 1000l;
 		// Assert
 		Assert.assertEquals(puntosAcumuladosEsperados, puntosAcumulados);
@@ -95,7 +119,7 @@ public class CanjeoMillasPorPuntosTest {
 		listaVuelosMock.add(vuelo2);
 		Mockito.when(vueloDao.consultarVuelosPorCliente(codigoCliente)).thenReturn(listaVuelosMock);
 		// Act
-		long puntosAcumulados = canjeoPuntosService.obtenerPuntosAcumulados(codigoCliente);
+		long puntosAcumulados = canjeoPuntosService.obtenerPuntosAcumulados(null);
 		long puntosAcumuladosEsperados = 2500L;
 		// Assert
 		Assert.assertEquals(puntosAcumuladosEsperados, puntosAcumulados);

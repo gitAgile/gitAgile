@@ -14,7 +14,6 @@ import com.aerolineasagiles.exception.DestinosExcedenPuntosException;
 import com.aerolineasagiles.exception.NoPuntosAcumuladosException;
 import com.aerolineasagiles.exception.PuntosNoSuficientesException;
 import com.aerolineasagiles.model.CatalogoDestino;
-import com.aerolineasagiles.model.Cliente;
 import com.aerolineasagiles.service.CanjeoPuntosService;
 
 @ViewScoped
@@ -52,8 +51,7 @@ public class CanjeoMillasController {
 	public void consultarPuntosAcumuladosPorCliente() {
 		try {
 			if (cedulaCliente != null && !cedulaCliente.isEmpty()) {
-				Cliente cliente = canjeoPuntosService.buscarClientePorCedula(cedulaCliente);
-				puntosAcumulados = canjeoPuntosService.obtenerPuntosAcumulados(cliente.getCodigoCliente());
+				puntosAcumulados = canjeoPuntosService.obtenerPuntosAcumulados(cedulaCliente);
 			}
 		} catch (NoPuntosAcumuladosException e) {
 			FacesContext.getCurrentInstance().addMessage("txtCedulaCliente", new FacesMessage(FacesMessage.SEVERITY_ERROR, null, e.getMessage()));
@@ -138,6 +136,14 @@ public class CanjeoMillasController {
 	 */
 	public void setDestinosSeleccionados(Long[] destinosSeleccionados) {
 		this.destinosSeleccionados = destinosSeleccionados;
+	}
+
+	/**
+	 * @param canjeoPuntosService
+	 *            the canjeoPuntosService to set
+	 */
+	public void setCanjeoPuntosService(CanjeoPuntosService canjeoPuntosService) {
+		this.canjeoPuntosService = canjeoPuntosService;
 	}
 
 }

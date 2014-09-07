@@ -33,7 +33,12 @@ public class CanjeoPuntosService {
 		return clienteDao.buscarClientePorCedula(cedula);
 	}
 
-	public Long obtenerPuntosAcumulados(Long codigoCliente) throws NoPuntosAcumuladosException {
+	public Long obtenerPuntosAcumulados(String cedulaCliente) throws NoPuntosAcumuladosException {
+		Cliente cliente = buscarClientePorCedula(cedulaCliente);
+		return contarPuntosAcumulados(cliente.getCodigoCliente());
+	}
+
+	private Long contarPuntosAcumulados(Long codigoCliente) throws NoPuntosAcumuladosException {
 		List<Vuelo> vuelosDeCliente = vueloDao.consultarVuelosPorCliente(codigoCliente);
 		long puntosAcumulados = 0;
 		if (!vuelosDeCliente.isEmpty()) {
@@ -48,8 +53,7 @@ public class CanjeoPuntosService {
 		return puntosAcumulados;
 	}
 
-	public List<CatalogoDestino> obtenerDestinosCanjeablesPorPuntosAcumulados(Long puntosAcumulados)
-			throws PuntosNoSuficientesException {
+	public List<CatalogoDestino> obtenerDestinosCanjeablesPorPuntosAcumulados(Long puntosAcumulados) throws PuntosNoSuficientesException {
 		List<CatalogoDestino> destinos = catalogoDestinoDao.obtenerTodos();
 		List<CatalogoDestino> destinosCanjeables = new ArrayList<CatalogoDestino>();
 		for (CatalogoDestino destino : destinos) {
@@ -70,8 +74,7 @@ public class CanjeoPuntosService {
 			puntosDeDestinos += destino.getEquivalenciaEnPuntos();
 		}
 		if (puntosAcumulados < puntosDeDestinos) {
-			throw new DestinosExcedenPuntosException(
-					"Los suma de puntos de los destinos escogido exceden el de los puntos acumulados.");
+			throw new DestinosExcedenPuntosException("Los suma de puntos de los destinos escogido exceden el de los puntos acumulados.");
 		}
 		return puntosAcumulados - puntosDeDestinos;
 
