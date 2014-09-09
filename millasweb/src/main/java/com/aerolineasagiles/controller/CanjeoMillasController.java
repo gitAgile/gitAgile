@@ -27,6 +27,7 @@ public class CanjeoMillasController {
 	private Long puntosAcumulados;
 	private List<CatalogoDestino> destinosCanjeables;
 	private Long[] destinosSeleccionados;
+	private boolean asignacionExitosa;
 
 	@PostConstruct
 	public void postConstruct() {
@@ -61,9 +62,11 @@ public class CanjeoMillasController {
 	public void asignarDestinosSeleccionados() {
 		List<CatalogoDestino> catalogoDestinosSeleccionados = obtenerCatalogosDestinosSeleccionados(destinosSeleccionados);
 		try {
-			canjeoPuntosService.canjearDestinosConPuntosAcumulados(catalogoDestinosSeleccionados, puntosAcumulados);
-			FacesContext.getCurrentInstance().addMessage("txtCedulaCliente",
-					new FacesMessage(FacesMessage.SEVERITY_INFO, null, "Se han asignado correctamente los destinos seleccionados"));
+			puntosAcumulados = canjeoPuntosService.canjearDestinosConPuntosAcumulados(catalogoDestinosSeleccionados, puntosAcumulados);
+			asignacionExitosa = true;
+			// FacesContext.getCurrentInstance().addMessage("txtCedulaCliente",
+			// new FacesMessage(FacesMessage.SEVERITY_INFO, null,
+			// "Se han asignado correctamente los destinos seleccionados"));
 		} catch (DestinosExcedenPuntosException e) {
 			FacesContext.getCurrentInstance().addMessage("txtCedulaCliente", new FacesMessage(FacesMessage.SEVERITY_ERROR, null, e.getMessage()));
 		}
@@ -144,6 +147,21 @@ public class CanjeoMillasController {
 	 */
 	public void setCanjeoPuntosService(CanjeoPuntosService canjeoPuntosService) {
 		this.canjeoPuntosService = canjeoPuntosService;
+	}
+
+	/**
+	 * @return the asignacionExitosa
+	 */
+	public boolean isAsignacionExitosa() {
+		return asignacionExitosa;
+	}
+
+	/**
+	 * @param asignacionExitosa
+	 *            the asignacionExitosa to set
+	 */
+	public void setAsignacionExitosa(boolean asignacionExitosa) {
+		this.asignacionExitosa = asignacionExitosa;
 	}
 
 }

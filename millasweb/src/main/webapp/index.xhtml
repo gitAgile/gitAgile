@@ -40,7 +40,11 @@
 						itemValue="#{destino.codigoCatalogoDestino}" />
 				</p:selectManyCheckbox>
 				<p:commandButton value="Canjear destinos"
-					actionListener="#{canjeoMillasController.asignarDestinosSeleccionados}" />
+					actionListener="#{canjeoMillasController.asignarDestinosSeleccionados}"
+					update="lblPuntosAcumulados,pnlDestinosCanjeables" />
+				<h:outputLabel id="msjAsignacionExitosa"
+					rendered="#{canjeoMillasController.asignacionExitosa}"
+					value="Destino(s) asignado(s) sin problemas!!!" />
 			</h:panelGrid>
 
 		</h:form>
