@@ -46,7 +46,7 @@ span.invalid {
 	color: red;
 }
 
-.formulario-label {
+.form-label {
 	color: black;
 	background-color: #ddd;
 	text-align: right !important;
@@ -61,7 +61,7 @@ span.invalid {
 	vertical-align: top;
 }
 
-.formulario th {
+.form th {
 	color: black;
 	background-color: #ddd;
 	text-align: right;
@@ -71,7 +71,7 @@ span.invalid {
 	font-size: 8pt;
 }
 
-.formulario td {
+.form td {
 	vertical-align: top;
 	font-size: 8pt;
 }

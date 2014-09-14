@@ -178,7 +178,7 @@
 			<version>2.1</version>
 		</dependency>
 
-		<!-- Test -->
+		<!-- DEPENDENCIAS PARA TDD -->
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -193,7 +193,7 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- ATDD -->
+		<!--DEPENDENCIAS PARA ATDD -->
 		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-core</artifactId>
