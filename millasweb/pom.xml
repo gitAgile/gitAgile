@@ -195,6 +195,16 @@
 
 		<!--DEPENDENCIAS PARA ATDD -->
 		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>18.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>2.43.1</version>
+		</dependency>
+		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-core</artifactId>
 			<version>1.0.0</version>
@@ -305,6 +315,10 @@
 						<version>2.4.3</version>
 						<configuration>
 							<skip>false</skip>
+							<excludes>
+								<exclude>**/*SeleniumTest.java
+								</exclude>
+							</excludes>
 						</configuration>
 					</plugin>
 				</plugins>

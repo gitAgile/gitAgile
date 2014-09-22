@@ -13,35 +13,36 @@
 			<br />
 			<p:messages showDetail="true" autoUpdate="true" closable="true" />
 
-			<h:panelGrid id="pnlBusquedaVuelos" columns="2"
-				styleClass="form" columnClasses="form-label, topped">
-				<h:outputLabel value="Cedula/Pasporte: " />
+			<h:panelGrid id="pnlBusquedaVuelos" columns="2" styleClass="form"
+				columnClasses="form-label, topped">
+				<h:outputLabel id="lblCedulaPasaporte" value="Cedula/Pasporte: " />
 				<p:inputText id="txtCedulaCliente"
 					value="#{canjeoMillasController.cedulaCliente}" />
 				<p:commandButton id="btnConsultar" value="Consultar Puntos"
 					actionListener="#{canjeoMillasController.consultarListener}"
-					update="lblPuntosAcumulados,pnlDestinosCanjeables"
+					update="lblPuntosAcumuladosResultado,pnlDestinosCanjeables"
 					process="pnlBusquedaVuelos" />
 			</h:panelGrid>
 
 			<h:panelGrid columns="2" columnClasses="form-label, topped">
-				<h:outputLabel value="Puntos Acumulados: " />
-				<h:outputLabel id="lblPuntosAcumulados"
+				<h:outputLabel id="lblPuntosAcumulados" value="Puntos Acumulados: " />
+				<h:outputLabel id="lblPuntosAcumuladosResultado"
 					value="#{canjeoMillasController.puntosAcumulados}" />
 			</h:panelGrid>
 
 			<h:panelGrid id="pnlDestinosCanjeables" columns="2" styleClass="form"
 				columnClasses="form-label, topped">
-				<h:outputLabel value="Destinos canjeables:" />
-				<p:selectManyCheckbox layout="grid" columns="2"
-					value="#{canjeoMillasController.destinosSeleccionados}">
+				<h:outputLabel id="lblDestinosCanjeables"
+					value="Destinos canjeables:" />
+				<p:selectManyCheckbox id="chkBoxDestinosSeleccionados" layout="grid"
+					columns="2" value="#{canjeoMillasController.destinosSeleccionados}">
 					<f:selectItems value="#{canjeoMillasController.destinosCanjeables}"
 						var="destino" itemLabel="#{destino.nombreDestino}"
 						itemValue="#{destino.codigoCatalogoDestino}" />
 				</p:selectManyCheckbox>
-				<p:commandButton value="Canjear destinos"
+				<p:commandButton id="btnCanjearDestinos" value="Canjear destinos"
 					actionListener="#{canjeoMillasController.asignarDestinosSeleccionados}"
-					update="lblPuntosAcumulados,pnlDestinosCanjeables" />
+					update="lblPuntosAcumuladosResultado,pnlDestinosCanjeables" />
 				<h:outputLabel id="msjAsignacionExitosa"
 					rendered="#{canjeoMillasController.asignacionExitosa}"
 					value="Destino(s) asignado(s) sin problemas!!!" />

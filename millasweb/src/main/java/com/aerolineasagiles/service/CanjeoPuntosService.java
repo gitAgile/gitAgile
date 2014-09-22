@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.persistence.NoResultException;
 
 import com.aerolineasagiles.data.CatalogoDestinoDao;
 import com.aerolineasagiles.data.ClienteDao;
@@ -34,11 +35,15 @@ public class CanjeoPuntosService {
 	}
 
 	public Long obtenerPuntosAcumulados(String cedulaCliente) throws NoPuntosAcumuladosException {
-		Cliente cliente = buscarClientePorCedula(cedulaCliente);
-		return contarPuntosAcumulados(cliente.getCodigoCliente());
+		try {
+			Cliente cliente = buscarClientePorCedula(cedulaCliente);
+			return contarPuntosAcumulados(cliente.getCodigoCliente());
+		} catch (NoResultException nre) {
+			return 0L;
+		}
 	}
 
-	private Long contarPuntosAcumulados(Long codigoCliente) throws NoPuntosAcumuladosException {
+	private Long contarPuntosAcumulados(Long codigoCliente) throws NoPuntosAcumuladosException, NoResultException {
 		List<Vuelo> vuelosDeCliente = vueloDao.consultarVuelosPorCliente(codigoCliente);
 		long puntosAcumulados = 0;
 		if (!vuelosDeCliente.isEmpty()) {
