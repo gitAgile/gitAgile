@@ -48,7 +48,7 @@ span.invalid {
 
 .form-label {
 	color: black;
-	background-color: #ddd;
+	background-color: #aec6cf;
 	text-align: right !important;
 	width: 14em;
 	vertical-align: top;
@@ -63,7 +63,7 @@ span.invalid {
 
 .form th {
 	color: black;
-	background-color: #ddd;
+	background-color: #aec6cf;
 	text-align: right;
 	/*width: 12em;*/
 	width: 20%;
